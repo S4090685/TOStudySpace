@@ -1,11 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clock & Adjustable Timer</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
-    
+  <div class="clock-container">
+    <!-- Analog Clock -->
+    <div class="clock">
+      <div class="hand hour" id="hour"></div>
+      <div class="hand minute" id="minute"></div>
+      <div class="hand second" id="second"></div>
+    </div>
+
+    <!-- Current Time -->
+    <div class="datetime" id="datetime"></div>
+
+    <!-- Adjustable Timer -->
+    <div class="timer">
+      <div>
+        <input type="number" id="setTime" placeholder="minutes" min="1">
+        <button onclick="setTimer()">Set</button>
+      </div>
+      <div class="timerDisplay" id="timer">25:00</div>
+      <button onclick="startTimer()">Start</button>
+      <button onclick="stopTimer()">Stop</button>
+      <button onclick="resetTimer()">Restart</button>
+    </div>
+  </div>
+
+
+<div class="sound-ui">
+  <div class="sound-group">
+    <div class="sound-control">
+      <button class="mute-btn" onclick="toggleSound('sound1', this)">🔇</button>
+      <input type="range" id="sound1" min="1" max="100" value="50" oninput="updateSoundVolume('sound1')">
+      <label for="sound1">Sound 1</label>
+    </div>
+    <div class="sound-control">
+      <button class="mute-btn" onclick="toggleSound('sound2', this)">🔇</button>
+      <input type="range" id="sound2" min="1" max="100" value="50" oninput="updateSoundVolume('sound2')">
+      <label for="sound2">Sound 2</label>
+    </div>
+    <div class="sound-control">
+      <button class="mute-btn" onclick="toggleSound('sound3', this)">🔇</button>
+      <input type="range" id="sound3" min="1" max="100" value="50" oninput="updateSoundVolume('sound3')">
+      <label for="sound3">Sound 3</label>
+    </div>
+    <div class="sound-control">
+      <button class="mute-btn" onclick="toggleSound('sound4', this)">🔇</button>
+      <input type="range" id="sound4" min="1" max="100" value="50" oninput="updateSoundVolume('sound4')">
+      <label for="sound4">Sound 4</label>
+    </div>
+    <div class="sound-control">
+      <button class="mute-btn" onclick="toggleSound('sound5', this)">🔇</button>
+      <input type="range" id="sound5" min="1" max="100" value="50" oninput="updateSoundVolume('sound5')">
+      <label for="sound5">Sound 5</label>
+    </div>
+  </div>
+  <div class="sound-group">
+    <div class="sound-control">
+      <button class="mute-btn" onclick="toggleSound('sound6', this)">🔇</button>
+      <input type="range" id="sound6" min="1" max="100" value="50" oninput="updateSoundVolume('sound6')">
+      <label for="sound6">Sound 6</label>
+    </div>
+    <div class="sound-control">
+      <button class="mute-btn" onclick="toggleSound('sound7', this)">🔇</button>
+      <input type="range" id="sound7" min="1" max="100" value="50" oninput="updateSoundVolume('sound7')">
+      <label for="sound7">Sound 7</label>
+    </div>
+    <div class="sound-control">
+      <button class="mute-btn" onclick="toggleSound('sound8', this)">🔇</button>
+      <input type="range" id="sound8" min="1" max="100" value="50" oninput="updateSoundVolume('sound8')">
+      <label for="sound8">Sound 8</label>
+    </div>
+    <div class="sound-control">
+      <button class="mute-btn" onclick="toggleSound('sound9', this)">🔇</button>
+      <input type="range" id="sound9" min="1" max="100" value="50" oninput="updateSoundVolume('sound9')">
+      <label for="sound9">Sound 9</label>
+    </div>
+    <div class="sound-control">
+      <button class="mute-btn" onclick="toggleSound('sound10', this)">🔇</button>
+      <input type="range" id="sound10" min="1" max="100" value="50" oninput="updateSoundVolume('sound10')">
+      <label for="sound10">Sound 10</label>
+    </div>
+  </div>
+</div>
+
+
 </body>
 </html>

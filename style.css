@@ -1,0 +1,133 @@
+/* Center everything */
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: flex-start; /* align items to the left */
+    align-items: center;         /* vertical center */
+    padding-left: 50px;          /* space from the left edge */
+    background-color: #c3d4c8;
+    font-family: sans-serif;
+}
+
+/* Clock container */
+.clock-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* keep clock & timer aligned left */
+}
+
+/* Clock */
+.clock {
+    width: 200px;
+    height: 200px;
+    border: 8px solid #c0d6c3;
+    border-radius: 50%;
+    position: relative;
+    background: radial-gradient(circle, #fefefe, #ddd);
+    box-shadow: inset 4px 4px 10px rgba(0,0,0,0.2),
+                inset -4px -4px 10px rgba(255,255,255,0.7),
+                4px 4px 12px rgba(0,0,0,0.3);
+}
+
+/* Clock hands */
+.hand {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: 0 50%;
+    transform: rotate(0deg);
+    border-radius: 2px;
+}
+
+.hand.hour { width: 35%; height: 6px; background: #506a58; z-index: 2; }
+.hand.minute { width: 45%; height: 4px; background: #506a58; z-index: 2; }
+.hand.second { width: 50%; height: 2px; background: red; z-index: 3; }
+
+/* Pivot dot */
+.clock::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    background: #506a58;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+/* Date & Time display */
+.datetime {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #333;
+    background: #eee;
+    padding: 6px 12px;
+    border-radius: 6px;
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2),
+                inset -2px -2px 5px rgba(255,255,255,0.7);
+}
+
+/* Timer */
+.timer {
+    margin-top: 20px;
+    background: #fafafa;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2),
+                inset -2px -2px 5px rgba(255,255,255,0.7),
+                4px 4px 12px rgba(0,0,0,0.3);
+  
+}
+
+.sound-ui {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #e0e0e0;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    z-index: 100;
+}
+
+.sound-group {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.sound-control {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+.sound-control label {
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+.sound-control input[type="range"] {
+  width: 100px;
+  height: 8px;
+}
+
+.mute-btn {
+  font-size: 12px;
+  padding: 2px 5px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  background-color: #ccc;
+}
+
+.mute-btn:active {
+  box-shadow: inset 1px 1px 3px rgba(0,0,0,0.3);
+}
