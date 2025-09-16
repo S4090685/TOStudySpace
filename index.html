@@ -8,30 +8,35 @@
   <script src="script.js" defer></script>
 </head>
 <body>
-  <div class="clock-container">
-    <!-- Analog Clock -->
-    <div class="clock">
-      <div class="hand hour" id="hour"></div>
-      <div class="hand minute" id="minute"></div>
-      <div class="hand second" id="second"></div>
-    </div>
 
-    <!-- Current Time -->
-    <div class="datetime" id="datetime"></div>
+      <div class="clock-container">
+        <!-- Analog Clock -->
+        <div class="clock">
+          <div class="hand hour" id="hour"></div>
+          <div class="hand minute" id="minute"></div>
+          <div class="hand second" id="second"></div>
+        </div>
 
-    <!-- Adjustable Timer -->
-    <div class="timer">
-      <div>
-        <input type="number" id="setTime" placeholder="minutes" min="1">
-        <button onclick="setTimer()">Set</button>
+        <!-- Current Time -->
+        <div class="datetime" id="datetime"></div>
+
+        <!-- Adjustable Timer -->
+        <div class="timer">
+          <div>
+            <input type="number" id="setTime" placeholder="minutes" min="1">
+            <button onclick="setTimer()">Set</button>
+          </div>
+          <div class="timerDisplay" id="timer">25:00</div>
+          <button onclick="startTimer()">Start</button>
+          <button onclick="stopTimer()">Stop</button>
+          <button onclick="resetTimer()">Restart</button>
+        </div>
       </div>
-      <div class="timerDisplay" id="timer">25:00</div>
-      <button onclick="startTimer()">Start</button>
-      <button onclick="stopTimer()">Stop</button>
-      <button onclick="resetTimer()">Restart</button>
-    </div>
-  </div>
-
+  
+  <!-- Right Panel: Video -->
+    <video id="bgVideo" autoplay muted loop playsinline>
+  <source src="bedroom .mp4" type="video/mp4">
+</video>
 
 <div class="sound-ui">
   <div class="sound-group">

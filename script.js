@@ -1,4 +1,4 @@
-// ----- Analog Clock -----
+
 function updateClock() {
     const now = new Date();
     const second = now.getSeconds();
@@ -14,8 +14,8 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-// ----- Adjustable Timer -----
-let timerDuration = 25 * 60; // default 25 minutes
+
+let timerDuration = 30 * 60;
 let timerRemaining = timerDuration;
 let timerInterval = null;
 
@@ -61,7 +61,8 @@ function resetTimer() {
 }
 
 updateTimerDisplay();
-// 声音对象，初始静音
+
+
 const sounds = {
   sound1: new Audio('sounds/sound1.mp3'),
   sound2: new Audio('sounds/sound2.mp3'),
@@ -75,15 +76,14 @@ const sounds = {
   sound10: new Audio('sounds/sound10.mp3')
 };
 
-// 初始化循环播放、静音
+
 for (let key in sounds) {
   sounds[key].loop = true;
   sounds[key].volume = 0;
   sounds[key].muted = true;
-  // sounds[key].play(); // 如果需要自动播放可以取消注释
 }
 
-// 滑块控制音量
+
 function updateSoundVolume(id) {
   const slider = document.getElementById(id);
   const volume = slider.value / 100;
@@ -92,17 +92,17 @@ function updateSoundVolume(id) {
   }
 }
 
-// 静音开关（图标变化）
+
 function toggleSound(id, btn) {
   const sound = sounds[id];
   if (sound.muted) {
     sound.muted = false;
     sound.volume = document.getElementById(id).value / 100;
-    btn.textContent = "🔊"; // 打开声音图标
+    btn.textContent = "🔊";
     sound.play();
   } else {
     sound.muted = true;
     sound.volume = 0;
-    btn.textContent = "🔇"; // 静音图标
+    btn.textContent = "🔇";
   }
 }
