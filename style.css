@@ -1,118 +1,127 @@
-
 body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding-left: 50px;
-    background-color: #3a3b50;
-    font-family: sans-serif;
-}
-.main-container {
+  margin: 0;
+  height: 100vh;
   display: flex;
-  flex-direction: column;
-  padding: 50px;
-  box-sizing: border-box;
-  width: calc(50% - 50px); 
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 50px;
+  background-color: #3a3b50;
+  font-family: sans-serif;
 }
 
 .clock-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .clock {
-    width: 200px;
-    height: 200px;
-    border: 8px solid #77758e;
-    border-radius: 50%;
-    position: relative;
-    background: radial-gradient(circle, #d2d0d5, #ddd);
-    box-shadow: inset 4px 4px 10px rgba(0,0,0,0.2),
-                inset -4px -4px 10px #010229
-                4px 4px 12px rgba(0,0,0,0.3);
+  width: 200px;
+  height: 200px;
+  border: 8px solid #77758e;
+  border-radius: 50%;
+  position: relative;
+  background: radial-gradient(circle, #d2d0d5, #ddd);
+  box-shadow: inset 4px 4px 10px rgba(0,0,0,0.2),
+              inset -4px -4px 10px #010229,
+              4px 4px 12px rgba(0,0,0,0.3);
 }
 
 .hand {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform-origin: 0 50%;
-    transform: rotate(0deg);
-    border-radius: 2px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0 50%;
+  transform: rotate(0deg);
+  border-radius: 2px;
 }
 
 .hand.hour { width: 35%; height: 6px; background: #010229; z-index: 2; }
-.hand.minute { width: 45%; height: 4px; background:#010229; z-index: 2; }
+.hand.minute { width: 45%; height: 4px; background: #010229; z-index: 2; }
 .hand.second { width: 50%; height: 2px; background: #010229; z-index: 3; }
 
-
 .clock::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 12px;
-    height: 12px;
-    background: #010229;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  background: #010229;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
 }
-
 
 .datetime {
-    margin-top: 20px;
-    font-size: 16px;
-    color: #333;
-    background: #eee;
-    padding: 6px 12px;
-    border-radius: 6px;
-    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2),
-                inset -2px -2px 5px rgba(255,255,255,0.7);
+  margin-top: 20px;
+  font-size: 16px;
+  color: #333;
+  background: #eee;
+  padding: 6px 12px;
+  border-radius: 6px;
 }
 
-
 .timer {
-    margin-top: 20px;
-    background: #fafafa;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2),
-                inset -2px -2px 5px rgba(255,255,255,0.7),
-                4px 4px 12px rgba(0,0,0,0.3);
-  
+  margin-top: 20px;
+  background: #fafafa;
+  padding: 15px;
+  border-radius: 10px;
 }
 
 #bgVideo {
   position: fixed;
   top: 0;
-  padding-left: 250px;
+  left: 0;
   width: 100vw;
   height: 100vh;
   object-fit: cover;
   z-index: -1;
 }
+
+/* Video Panel */
+.video-panel {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: rgba(240,240,240,0.9);
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  z-index: 200;
+}
+
+#togglePanelBtn {
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.video-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+
 .sound-ui {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #e0e0e0;
-    padding: 15px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    z-index: 100;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #e0e0e0;
+  padding: 15px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  z-index: 100;
 }
 
 .sound-group {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 15px;
+  justify-items: start;
 }
 
 .sound-control {
@@ -139,8 +148,4 @@ body {
   border: none;
   border-radius: 4px;
   background-color: #ccc;
-}
-
-.mute-btn:active {
-  box-shadow: inset 1px 1px 3px rgba(0,0,0,0.3);
 }

@@ -9,92 +9,139 @@
 </head>
 <body>
 
-      <div class="clock-container">
-        <!-- Analog Clock -->
-        <div class="clock">
-          <div class="hand hour" id="hour"></div>
-          <div class="hand minute" id="minute"></div>
-          <div class="hand second" id="second"></div>
-        </div>
+  <div class="clock-container">
+    <!-- Analog Clock -->
+    <div class="clock">
+      <div class="hand hour" id="hour"></div>
+      <div class="hand minute" id="minute"></div>
+      <div class="hand second" id="second"></div>
+    </div>
 
-        <!-- Current Time -->
-        <div class="datetime" id="datetime"></div>
+    <!-- Current Time -->
+    <div class="datetime" id="datetime"></div>
 
-        <!-- Adjustable Timer -->
-        <div class="timer">
-          <div>
-            <input type="number" id="setTime" placeholder="minutes" min="1">
-            <button onclick="setTimer()">Set</button>
-          </div>
-          <div class="timerDisplay" id="timer">25:00</div>
-          <button onclick="startTimer()">Start</button>
-          <button onclick="stopTimer()">Stop</button>
-          <button onclick="resetTimer()">Restart</button>
-        </div>
+    <!-- Adjustable Timer -->
+    <div class="timer">
+      <div>
+        <input type="number" id="setTime" placeholder="minutes" min="1">
+        <button onclick="setTimer()">Set</button>
       </div>
-  
-  <!-- Right Panel: Video -->
-    <video id="bgVideo" autoplay muted loop playsinline>
-  <source src="bedroom .mp4" type="video/mp4">
-</video>
-
-<div class="sound-ui">
-  <div class="sound-group">
-    <div class="sound-control">
-      <button class="mute-btn" onclick="toggleSound('sound1', this)">🔇</button>
-      <input type="range" id="sound1" min="1" max="100" value="50" oninput="updateSoundVolume('sound1')">
-      <label for="sound1">Sound 1</label>
-    </div>
-    <div class="sound-control">
-      <button class="mute-btn" onclick="toggleSound('sound2', this)">🔇</button>
-      <input type="range" id="sound2" min="1" max="100" value="50" oninput="updateSoundVolume('sound2')">
-      <label for="sound2">Sound 2</label>
-    </div>
-    <div class="sound-control">
-      <button class="mute-btn" onclick="toggleSound('sound3', this)">🔇</button>
-      <input type="range" id="sound3" min="1" max="100" value="50" oninput="updateSoundVolume('sound3')">
-      <label for="sound3">Sound 3</label>
-    </div>
-    <div class="sound-control">
-      <button class="mute-btn" onclick="toggleSound('sound4', this)">🔇</button>
-      <input type="range" id="sound4" min="1" max="100" value="50" oninput="updateSoundVolume('sound4')">
-      <label for="sound4">Sound 4</label>
-    </div>
-    <div class="sound-control">
-      <button class="mute-btn" onclick="toggleSound('sound5', this)">🔇</button>
-      <input type="range" id="sound5" min="1" max="100" value="50" oninput="updateSoundVolume('sound5')">
-      <label for="sound5">Sound 5</label>
+      <div class="timerDisplay" id="timer">25:00</div>
+      <button onclick="startTimer()">Start</button>
+      <button onclick="stopTimer()">Stop</button>
+      <button onclick="resetTimer()">Restart</button>
     </div>
   </div>
-  <div class="sound-group">
-    <div class="sound-control">
-      <button class="mute-btn" onclick="toggleSound('sound6', this)">🔇</button>
-      <input type="range" id="sound6" min="1" max="100" value="50" oninput="updateSoundVolume('sound6')">
-      <label for="sound6">Sound 6</label>
-    </div>
-    <div class="sound-control">
-      <button class="mute-btn" onclick="toggleSound('sound7', this)">🔇</button>
-      <input type="range" id="sound7" min="1" max="100" value="50" oninput="updateSoundVolume('sound7')">
-      <label for="sound7">Sound 7</label>
-    </div>
-    <div class="sound-control">
-      <button class="mute-btn" onclick="toggleSound('sound8', this)">🔇</button>
-      <input type="range" id="sound8" min="1" max="100" value="50" oninput="updateSoundVolume('sound8')">
-      <label for="sound8">Sound 8</label>
-    </div>
-    <div class="sound-control">
-      <button class="mute-btn" onclick="toggleSound('sound9', this)">🔇</button>
-      <input type="range" id="sound9" min="1" max="100" value="50" oninput="updateSoundVolume('sound9')">
-      <label for="sound9">Sound 9</label>
-    </div>
-    <div class="sound-control">
-      <button class="mute-btn" onclick="toggleSound('sound10', this)">🔇</button>
-      <input type="range" id="sound10" min="1" max="100" value="50" oninput="updateSoundVolume('sound10')">
-      <label for="sound10">Sound 10</label>
-    </div>
+
+  <!-- Background Video -->
+  <video id="bgVideo" autoplay muted loop playsinline>
+    <source src="bedroom .mp4" type="video/mp4">
+  </video>
+<div id="videoPanel" class="video-panel">
+  <button id="togglePanelBtn">🎬 Videos</button>
+  <div class="video-list">
+    <button onclick="changeVideo('bedroom .mp4')">Bedroom</button>
+    <button onclick="changeVideo('cafe loop.mp4')">Cafe</button>
+    <button onclick="changeVideo('city.mp4')">City</button>
+    <button onclick="changeVideo('living room.mp4')">Living Room</button>
+    <button onclick="changeVideo('ocean.mp4')">Ocean</button>
+    <button onclick="changeVideo('rainforest.mp4')">Rainforest</button>
+    <button onclick="changeVideo('river .mp4')">River</button>
+    <button onclick="changeVideo('snow 2.mp4')">snow</button>
+    <button onclick="changeVideo('study room.mp4')">Library</button>
   </div>
 </div>
 
+
+  <!-- Sound Controls -->
+  <div class="sound-ui">
+    <div class="sound-group">
+      <div class="sound-control">
+        <button class="mute-btn" onclick="toggleSound('sound1', this)">🔇</button>
+        <input type="range" id="sound1" min="1" max="100" value="50" oninput="updateSoundVolume('sound1')">
+        <label for="sound1">rain</label>
+        <audio id="rain" src="calming rain.mp3"></audio>
+      </div>
+
+      <div class="sound-control">
+        <button class="mute-btn" onclick="toggleSound('sound2', this)">🔇</button>
+        <input type="range" id="sound2" min="1" max="100" value="50" oninput="updateSoundVolume('sound2')">
+        <label for="sound2">bird</label>
+        <audio id="bird" src="bird.mp3"></audio>
+      </div>
+
+      <div class="sound-control">
+        <button class="mute-btn" onclick="toggleSound('sound3', this)">🔇</button>
+        <input type="range" id="sound3" min="1" max="100" value="50" oninput="updateSoundVolume('sound3')">
+        <label for="sound3">talking</label>
+        <audio id="talking" src="people talking.mp3"></audio>
+      </div>
+
+      <div class="sound-control">
+        <button class="mute-btn" onclick="toggleSound('sound4', this)">🔇</button>
+        <input type="range" id="sound4" min="1" max="100" value="50" oninput="updateSoundVolume('sound4')">
+        <label for="sound4">waves</label>
+        <audio id="waves" src="sea waves 1.mp3"></audio>
+      </div>
+
+      <div class="sound-control">
+        <button class="mute-btn" onclick="toggleSound('sound5', this)">🔇</button>
+        <input type="range" id="sound5" min="1" max="100" value="50" oninput="updateSoundVolume('sound5')">
+        <label for="sound5">snow</label>
+        <audio id="snow" src="snow falling.mp3"></audio>
+      </div>
+
+      <div class="sound-control">
+        <button class="mute-btn" onclick="toggleSound('sound6', this)">🔇</button>
+        <input type="range" id="sound6" min="1" max="100" value="50" oninput="updateSoundVolume('sound6')">
+        <label for="sound6">thunder</label>
+        <audio id="thunder" src="thunder.mp3"></audio>
+      </div>
+
+      <div class="sound-control">
+        <button class="mute-btn" onclick="toggleSound('sound7', this)">🔇</button>
+        <input type="range" id="sound7" min="1" max="100" value="50" oninput="updateSoundVolume('sound7')">
+        <label for="sound7">wind</label>
+        <audio id="wind" src="wind.mp3"></audio>
+      </div>
+
+      <div class="sound-control">
+        <button class="mute-btn" onclick="toggleSound('sound8', this)">🔇</button>
+        <input type="range" id="sound8" min="1" max="100" value="50" oninput="updateSoundVolume('sound8')">
+        <label for="sound8">pencil</label>
+        <audio id="pencil" src="pencil write.mp3"></audio>
+      </div>
+
+      <div class="sound-control">
+        <button class="mute-btn" onclick="toggleSound('sound9', this)">🔇</button>
+        <input type="range" id="sound9" min="1" max="100" value="50" oninput="updateSoundVolume('sound9')">
+        <label for="sound9">city</label>
+        <audio id="city" src="city-sounds.mp3" volume="0.9"></audio>
+      </div>
+
+      <div class="sound-control">
+        <button class="mute-btn" onclick="toggleSound('sound10', this)">🔇</button>
+        <input type="range" id="sound10" min="1" max="100" value="50" oninput="updateSoundVolume('sound10')">
+        <label for="sound10">cricket</label>
+        <audio id="cricket" src="crickets.mp3"></audio>
+      </div>
+
+      <div class="sound-control">
+        <button class="mute-btn" onclick="toggleSound('sound11', this)">🔇</button>
+        <input type="range" id="sound11" min="1" max="100" value="50" oninput="updateSoundVolume('sound11')">
+        <label for="sound11">guitar</label>
+        <audio id="guitar" src="bgm-blues-guitar-loop.mp3"></audio>
+      </div>
+
+      <div class="sound-control">
+        <button class="mute-btn" onclick="toggleSound('sound12', this)">🔇</button>
+        <input type="range" id="sound12" min="1" max="100" value="50" oninput="updateSoundVolume('sound12')">
+        <label for="sound12">piano</label>
+        <audio id="piano" src="soft-piano-100-bpm.mp3"></audio>
+      </div>
+
+    </div>
+  </div>
 
 </body>
 </html>

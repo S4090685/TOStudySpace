@@ -1,108 +1,97 @@
-
+// ----------- CLOCK -------------
 function updateClock() {
-    const now = new Date();
-    const second = now.getSeconds();
-    const minute = now.getMinutes();
-    const hour = now.getHours();
+  const now = new Date();
+  const second = now.getSeconds();
+  const minute = now.getMinutes();
+  const hour = now.getHours();
 
-    document.getElementById("second").style.transform = `rotate(${second * 6}deg)`;
-    document.getElementById("minute").style.transform = `rotate(${minute * 6}deg)`;
-    document.getElementById("hour").style.transform = `rotate(${(hour % 12) * 30 + minute / 2}deg)`;
+  document.getElementById("second").style.transform = `rotate(${second * 6}deg)`;
+  document.getElementById("minute").style.transform = `rotate(${minute * 6}deg)`;
+  document.getElementById("hour").style.transform = `rotate(${(hour % 12) * 30 + minute / 2}deg)`;
 
-    document.getElementById("datetime").innerText = now.toLocaleTimeString();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0"); 
+  const day = String(now.getDate()).padStart(2, "0");
+
+  const dateStr = `${year}-${month}-${day}`;
+  const timeStr = now.toLocaleTimeString();
+
+  document.getElementById("datetime").innerText = `${dateStr} ${timeStr}`;
 }
+
 setInterval(updateClock, 1000);
 updateClock();
 
 
-let timerDuration = 30 * 60;
-let timerRemaining = timerDuration;
-let timerInterval = null;
-
-function updateTimerDisplay() {
-    const minutes = Math.floor(timerRemaining / 60);
-    const seconds = timerRemaining % 60;
-    document.getElementById("timer").innerText =
-        `${minutes.toString().padStart(2,"0")}:${seconds.toString().padStart(2,"0")}`;
-}
-
-function setTimer() {
-    const minutes = parseInt(document.getElementById("setTime").value);
-    if (!isNaN(minutes) && minutes > 0) {
-        timerDuration = minutes * 60;
-        timerRemaining = timerDuration;
-        updateTimerDisplay();
-    }
-}
-
-function startTimer() {
-    if (timerInterval) return;
-    timerInterval = setInterval(() => {
-        if (timerRemaining > 0) {
-            timerRemaining--;
-            updateTimerDisplay();
-        } else {
-            clearInterval(timerInterval);
-            timerInterval = null;
-            alert("Time’s up!");
-        }
-    }, 1000);
-}
-
-function stopTimer() {
-    clearInterval(timerInterval);
-    timerInterval = null;
-}
-
-function resetTimer() {
-    stopTimer();
-    timerRemaining = timerDuration;
-    updateTimerDisplay();
-}
-
-updateTimerDisplay();
-
-
-const sounds = {
-  sound1: new Audio('sounds/sound1.mp3'),
-  sound2: new Audio('sounds/sound2.mp3'),
-  sound3: new Audio('sounds/sound3.mp3'),
-  sound4: new Audio('sounds/sound4.mp3'),
-  sound5: new Audio('sounds/sound5.mp3'),
-  sound6: new Audio('sounds/sound6.mp3'),
-  sound7: new Audio('sounds/sound7.mp3'),
-  sound8: new Audio('sounds/sound8.mp3'),
-  sound9: new Audio('sounds/sound9.mp3'),
-  sound10: new Audio('sounds/sound10.mp3')
+// ----------- SOUND CONTROLS -------------
+const soundMap = {
+  sound1: "rain",
+  sound2: "bird",
+  sound3: "talking",
+  sound4: "waves",
+  sound5: "snow",
+  sound6: "thunder",
+  sound7: "wind",
+  sound8: "pencil",
+  sound9: "city",
+  sound10: "cricket",
+  sound11: "guitar",
+  sound12: "piano"
 };
+window.addEventListener("DOMContentLoaded", () => {
+  const birdAudio = document.getElementById("bird");
+  birdAudio.volume = 0.8;
+});
 
+window.addEventListener("DOMContentLoaded", () => {
+  const cityAudio = document.getElementById("city");
+  cityAudio.volume = 0.8;
+});
 
-for (let key in sounds) {
-  sounds[key].loop = true;
-  sounds[key].volume = 0;
-  sounds[key].muted = true;
-}
+function toggleSound(soundId, btn) {
+  const audio = document.getElementById(soundMap[soundId]);
+  if (!audio) return;
 
-
-function updateSoundVolume(id) {
-  const slider = document.getElementById(id);
-  const volume = slider.value / 100;
-  if (!sounds[id].muted) {
-    sounds[id].volume = volume;
-  }
-}
-
-
-function toggleSound(id, btn) {
-  const sound = sounds[id];
-  if (sound.muted) {
-    sound.muted = false;
-    sound.volume = document.getElementById(id).value / 100;
+  if (audio.paused) {
+    audio.loop = true;
+    audio.muted = false;
+    audio.play();
     btn.textContent = "🔊";
-    sound.play();
   } else {
-    sound.muted = true;
-    sound.volume = 0;
-    btn.textContent = "🔇";
+    audio.muted = !audio.muted;
+    btn.textContent = audio.muted ? "🔇" : "🔊";
   }
+}
+
+function updateSoundVolume(soundId) {
+  const audio = document.getElementById(soundMap[soundId]);
+  if (!audio) return;
+
+  if (audio.paused) {
+    audio.loop = true;
+    audio.play();
+  }
+
+  const slider = document.getElementById(soundId);
+  audio.volume = slider.value / 100;
+
+  audio.muted = false;
+
+  const btn = slider.previousElementSibling;
+  if (btn && btn.classList.contains("mute-btn")) {
+    btn.textContent = "🔊";
+  }
+}
+const toggleBtn = document.getElementById('togglePanelBtn');
+const panel = document.querySelector('.video-list');
+
+toggleBtn.addEventListener('click', () => {
+  panel.style.display = panel.style.display === 'none' ? 'flex' : 'none';
+});
+
+function changeVideo(fileName) {
+  const bgVideo = document.getElementById('bgVideo');
+  bgVideo.src = fileName;
+  bgVideo.load();
+  bgVideo.play();
 }
