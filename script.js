@@ -48,6 +48,31 @@ function resetTimer() {
 
 updateTimerDisplay();
 
+// ----------- CLOCK -------------
+function updateClock() {
+  const now = new Date();
+  const second = now.getSeconds();
+  const minute = now.getMinutes();
+  const hour = now.getHours();
+
+  document.getElementById("second").style.transform = `rotate(${second * 6}deg)`;
+  document.getElementById("minute").style.transform = `rotate(${minute * 6}deg)`;
+  document.getElementById("hour").style.transform = `rotate(${(hour % 12) * 30 + minute / 2}deg)`;
+
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0"); 
+  const day = String(now.getDate()).padStart(2, "0");
+
+  const dateStr = `${year}-${month}-${day}`;
+  const timeStr = now.toLocaleTimeString();
+
+  document.getElementById("datetime").innerText = `${dateStr} ${timeStr}`;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
+
 
 // ----------- SOUND CONTROLS -------------
 const soundMap = {
