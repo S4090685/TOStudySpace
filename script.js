@@ -72,6 +72,25 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
+function createNumbers() {
+  const numbersContainer = document.getElementById("numbers");
+  for (let i = 1; i <= 12; i++) {
+    const number = document.createElement("div");
+    number.className = "number";
+    number.innerText = i;
+
+    const angle = (i / 12) * 2 * Math.PI;
+    const radius = 90;
+    const x = 100 + radius * Math.sin(angle); 
+    const y = 100 - radius * Math.cos(angle);
+
+    number.style.left = `${x}px`;
+    number.style.top = `${y}px`;
+
+    numbersContainer.appendChild(number);
+  }
+}
+createNumbers();
 
 
 // ----------- SOUND CONTROLS -------------

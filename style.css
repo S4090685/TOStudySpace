@@ -5,7 +5,7 @@ body {
   justify-content: flex-start;
   align-items: center;
   padding-left: 50px;
-  background-color: #3a3b50;
+  background-color: #a7a7ae;
   font-family: sans-serif;
 }
 
@@ -13,20 +13,34 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  
 }
 
 .clock {
   width: 200px;
   height: 200px;
-  border: 8px solid #77758e;
+  border: 8px solid #a7a7ae;
   border-radius: 50%;
   position: relative;
-  background: radial-gradient(circle, #d2d0d5, #ddd);
+  background: radial-gradient(circle, #8a8a8f, #fcfcff);
   box-shadow: inset 4px 4px 10px rgba(0,0,0,0.2),
-              inset -4px -4px 10px #010229,
+              inset -4px -4px 10px rgb(25, 25, 25),
               4px 4px 12px rgba(0,0,0,0.3);
+   opacity: 0.9;
+}
+.numbers {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
+.number {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  color: #2b2b2b;
+  font-size: 10px;
+  font-weight: bold;
+}
 .hand {
   position: absolute;
   top: 50%;
@@ -34,6 +48,7 @@ body {
   transform-origin: 0 50%;
   transform: rotate(0deg);
   border-radius: 2px;
+  color: #323235;
 }
 
 .hand.hour { width: 35%; height: 6px; background: #010229; z-index: 2; }
@@ -47,7 +62,7 @@ body {
   left: 50%;
   width: 12px;
   height: 12px;
-  background: #010229;
+  background: #161616;
   border-radius: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
@@ -55,18 +70,45 @@ body {
 
 .datetime {
   margin-top: 20px;
-  font-size: 16px;
-  color: #333;
-  background: #aba9c4;
-  padding: 6px 12px;
+  font-size: 20px;
+  color: #29292a;
+  background: #a7a7ae;
+   opacity: 0.9;
+  padding: 10px 23px;
   border-radius: 6px;
+  
 }
-
+button{
+  color: #3a3b50;
+}
 .timer {
   margin-top: 20px;
-  background: #aba9c4;
+  background: #a7a7ae;
+   opacity: 0.7;
   padding: 15px;
   border-radius: 10px;
+  color: rgb(81, 81, 81);
+  
+ 
+}
+.timer button {
+  margin: 5px;
+  padding: 6px 12px;
+  font-size: 16px;
+  background-color:#dedee1;
+}
+.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* space between buttons */
+  margin-top: 10px;
+}
+.timerDisplay {
+  font-size: 32px; 
+  font-weight: bold; 
+  text-align: center;
+  margin: 10px 0;
+  
 }
 
 #bgVideo {
@@ -79,12 +121,12 @@ body {
   z-index: -1;
 }
 
-/* Video Panel */
 .video-panel {
   position: fixed;
   top: 20px;
   right: 20px;
-  background-color: #aba9c4;
+  background-color: #a7a7ae;
+   opacity: 0.8;
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
@@ -100,6 +142,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  
 }
 
 
@@ -108,7 +151,8 @@ body {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #aba9c4;
+  background-color: #a7a7ae;
+   opacity: 0.8;
   padding: 15px 20px;
   display: flex;
   flex-direction: column;
@@ -140,6 +184,24 @@ body {
   width: 100px;
   height: 8px;
 }
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 200px;
+  height: 6px;
+  background: #757579;
+  border-radius: 5px;
+  outline: none;
+  margin: 10px 0;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgb(66, 66, 69);
+  cursor: pointer;
+}
 
 .mute-btn {
   font-size: 12px;
@@ -149,3 +211,4 @@ body {
   border-radius: 4px;
   background-color: #ccc;
 }
+

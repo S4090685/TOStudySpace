@@ -12,6 +12,7 @@
   <div class="clock-container">
     <!-- Analog Clock -->
     <div class="clock">
+       <div class="numbers" id="numbers"></div>
       <div class="hand hour" id="hour"></div>
       <div class="hand minute" id="minute"></div>
       <div class="hand second" id="second"></div>
@@ -23,25 +24,25 @@
     <!-- Adjustable Timer -->
     <div class="timer">
       <div>
-        <input type="number" id="setTime" placeholder="minutes" min="1">
-        <button onclick="setTimer()">Set</button>
+        <input type="number" id="setTime" placeholder="0:00" min="1">
+        <button onclick="setTimer()">O</button>
       </div>
-      <div class="timerDisplay" id="timer">25:00</div>
-      <button onclick="startTimer()">Start</button>
-      <button onclick="stopTimer()">Stop</button>
-      <button onclick="resetTimer()">Restart</button>
+      <div class="timerDisplay" id="timer">30:00</div>
+      <button onclick="startTimer()">▶️</button>
+      <button onclick="stopTimer()">⏹️</button>
+      <button onclick="resetTimer()">🔄</button>
     </div>
   </div>
 
   <!-- Background Video -->
   <video id="bgVideo" autoplay muted loop playsinline>
-    <source src="bedroom .mp4" type="video/mp4">
+    <source src="bedroom2.mp4" type="video/mp4">
   </video>
 <div id="videoPanel" class="video-panel">
   <button id="togglePanelBtn">🎬</button>
   <div class="video-list">
-    <button onclick="changeVideo('bedroom .mp4')">🛏️ </button>
-    <button onclick="changeVideo('bedroom2.mp4')">🛏️  2</button>
+    <button onclick="changeVideo('bedroom2.mp4')">🛏️ </button>
+    <button onclick="changeVideo('bedroom .mp4')">🛏️  2</button>
     <button onclick="changeVideo('cafe loop.mp4')"> ☕</button>
     <button onclick="changeVideo('city.mp4')">🌃</button>
     <button onclick="changeVideo('living room.mp4')">🛋️</button>
