@@ -1,26 +1,52 @@
-// ----------- CLOCK -------------
-function updateClock() {
-  const now = new Date();
-  const second = now.getSeconds();
-  const minute = now.getMinutes();
-  const hour = now.getHours();
+// ----------- TIMER -------------
+let timerDuration = 30 * 60; 
+let timerRemaining = timerDuration;
+let timerInterval = null;
 
-  document.getElementById("second").style.transform = `rotate(${second * 6}deg)`;
-  document.getElementById("minute").style.transform = `rotate(${minute * 6}deg)`;
-  document.getElementById("hour").style.transform = `rotate(${(hour % 12) * 30 + minute / 2}deg)`;
-
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, "0"); 
-  const day = String(now.getDate()).padStart(2, "0");
-
-  const dateStr = `${year}-${month}-${day}`;
-  const timeStr = now.toLocaleTimeString();
-
-  document.getElementById("datetime").innerText = `${dateStr} ${timeStr}`;
+function updateTimerDisplay() {
+  const minutes = Math.floor(timerRemaining / 60);
+  const seconds = timerRemaining % 60;
+  document.getElementById("timer").innerText =
+    `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 }
 
-setInterval(updateClock, 1000);
-updateClock();
+function setTimer() {
+  const minutes = parseInt(document.getElementById("setTime").value);
+  if (!isNaN(minutes) && minutes > 0) {
+    timerDuration = minutes * 60;
+    timerRemaining = timerDuration;
+    updateTimerDisplay();
+  }
+}
+
+function startTimer() {
+  if (timerInterval) return; 
+  timerInterval = setInterval(() => {
+    if (timerRemaining > 0) {
+      timerRemaining--;
+      updateTimerDisplay();
+    } else {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      alert("Time’s up!");
+    }
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+  timerInterval = null;
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  timerInterval = null;
+  timerRemaining = timerDuration;
+  updateTimerDisplay();
+}
+
+
+updateTimerDisplay();
 
 
 // ----------- SOUND CONTROLS -------------
