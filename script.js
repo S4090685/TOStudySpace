@@ -51,27 +51,22 @@ updateTimerDisplay();
 // ----------- CLOCK -------------
 function updateClock() {
   const now = new Date();
-  const second = now.getSeconds();
-  const minute = now.getMinutes();
-  const hour = now.getHours();
+  const seconds = now.getSeconds() + now.getMilliseconds() / 1000;
+  const minutes = now.getMinutes() + seconds / 60;
+  const hours   = (now.getHours() % 12) + minutes / 60;
 
-  document.getElementById("second").style.transform = `rotate(${second * 6}deg)`;
-  document.getElementById("minute").style.transform = `rotate(${minute * 6}deg)`;
-  document.getElementById("hour").style.transform = `rotate(${(hour % 12) * 30 + minute / 2}deg)`;
+  
+  document.getElementById("second").style.transform = `rotate(${seconds * 6}deg)`;
+  document.getElementById("minute").style.transform = `rotate(${minutes * 6}deg)`;
+  document.getElementById("hour").style.transform   = `rotate(${hours * 30}deg)`;
 
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, "0"); 
-  const day = String(now.getDate()).padStart(2, "0");
-
-  const dateStr = `${year}-${month}-${day}`;
+  const dateStr = now.toISOString().split("T")[0];
   const timeStr = now.toLocaleTimeString();
-
   document.getElementById("datetime").innerText = `${dateStr} ${timeStr}`;
+
+  requestAnimationFrame(updateClock);
 }
-
-setInterval(updateClock, 1000);
 updateClock();
-
 function createNumbers() {
   const numbersContainer = document.getElementById("numbers");
   for (let i = 1; i <= 12; i++) {
@@ -81,7 +76,7 @@ function createNumbers() {
 
     const angle = (i / 12) * 2 * Math.PI;
     const radius = 90;
-    const x = 100 + radius * Math.sin(angle); 
+    const x = 100 + radius * Math.sin(angle);
     const y = 100 - radius * Math.cos(angle);
 
     number.style.left = `${x}px`;
@@ -91,7 +86,6 @@ function createNumbers() {
   }
 }
 createNumbers();
-
 
 // ----------- SOUND CONTROLS -------------
 const soundMap = {
