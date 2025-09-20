@@ -57,6 +57,12 @@ body {
   background: var(--box-color);
 }
 
+@media (max-width: 800px) {
+  .video-list,
+  .sound-ui {
+    display: none !important;
+  }
+}
 
 .clock-container {
   display: flex;
