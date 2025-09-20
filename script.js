@@ -1,3 +1,14 @@
+
+// welcoming message
+window.onload = function() {
+  document.getElementById('welcomeInfo').style.display = 'flex';
+}
+
+// Close the popup when button is clicked
+document.getElementById('okBtn').onclick = function() {
+  document.getElementById('welcomeInfo').style.display = 'none';
+}
+
 // ----------- TIMER -------------
 let timerDuration = 30 * 60; 
 let timerRemaining = timerDuration;
