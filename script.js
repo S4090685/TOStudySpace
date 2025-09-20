@@ -55,10 +55,10 @@ function updateClock() {
   const minutes = now.getMinutes() + seconds / 60;
   const hours   = (now.getHours() % 12) + minutes / 60;
 
-  
-  document.getElementById("second").style.transform = `rotate(${seconds * 6}deg)`;
-  document.getElementById("minute").style.transform = `rotate(${minutes * 6}deg)`;
-  document.getElementById("hour").style.transform   = `rotate(${hours * 30}deg)`;
+ const offset = -90;
+document.getElementById("second").style.transform = `rotate(${seconds * 6 + offset}deg)`;
+document.getElementById("minute").style.transform = `rotate(${minutes * 6 + offset}deg)`;
+document.getElementById("hour").style.transform   = `rotate(${hours * 30 + offset}deg)`;
 
   const dateStr = now.toISOString().split("T")[0];
   const timeStr = now.toLocaleTimeString();
