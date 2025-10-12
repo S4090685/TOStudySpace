@@ -157,11 +157,26 @@ function updateSoundVolume(soundId) {
     btn.textContent = "🔊";
   }
 }
+const musicToggleBtn = document.getElementById('toggleBtn');
+const soundPanel = document.getElementById('soundPanel');
+
+musicToggleBtn.addEventListener('click', () => {
+  soundPanel.classList.toggle('open');
+  musicToggleBtn.textContent = soundPanel.classList.contains('open')
+    ? "x"
+    : "🎶";
+});
+
+// video panel 
 const toggleBtn = document.getElementById('togglePanelBtn');
-const panel = document.querySelector('.video-list');
+const videoPanel = document.getElementById('videoPanel');
 
 toggleBtn.addEventListener('click', () => {
-  panel.style.display = panel.style.display === 'none' ? 'flex' : 'none';
+  videoPanel.classList.toggle('open');
+  toggleBtn.textContent = videoPanel.classList.contains('open')
+    ? "x"
+    : "🎬";
+
 });
 
 function changeVideo(fileName) {
