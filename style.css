@@ -8,11 +8,10 @@ body {
   background-color: #a7a7ae;
   font-family: sans-serif;
 }
-
-
+/* ------------------------welcome info----------------- */
 .welcome-Info {
   font-family: "Winky Rough", sans-serif;
-    font-weight: 00;
+  font-weight: 00;
   display: none;
   position: fixed;
   top: 0; left: 0;
@@ -44,13 +43,13 @@ body {
 /* close button for welcome content */
 .ok-Btn { 
   margin-top: 30px;
-    background: rgba(242, 242, 242, 0.535);
-    color: rgb(15, 3, 100);
-    padding: 7px 15px 5px;
-    border-color: #7c7cf6;
-    border-radius: 15px;
-    cursor: pointer;
-    font-size: 30px;
+  background: rgba(242, 242, 242, 0.535);
+  color: rgb(15, 3, 100);
+  padding: 7px 15px 5px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 30px;
 }
 
 .ok-Btn:hover {
@@ -60,16 +59,15 @@ body {
 @media (max-width: 800px) {
   .video-list,
   .sound-ui {
-    display: none !important;
+  display: none !important;
   }
 }
 
-/* clock css */
+/* ------------------------Analog clock------------------------ */
 .clock-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  
 }
 
 .clock {
@@ -78,11 +76,11 @@ body {
   border: 8px solid #a7a7ae;
   border-radius: 50%;
   position: relative;
-  background: radial-gradient(circle, #8a8a8f, #fcfcff);
+  background: radial-gradient(circle, #a7a7ae, #fcfcff);
   box-shadow: inset 4px 4px 10px rgba(0,0,0,0.2),
               inset -4px -4px 10px rgb(25, 25, 25),
               4px 4px 12px rgba(0,0,0,0.3);
-   opacity: 0.9;
+  opacity: 0.9;
 
 }
 .numbers {
@@ -98,6 +96,7 @@ body {
   font-size: 10px;
   font-weight: bold;
 }
+
 .hand {
   position: absolute;
   top: 50%;
@@ -108,20 +107,34 @@ body {
   color: #323235;
 }
 
-.hand.hour { width: 30%; height: 6px; background: #010229; z-index: 2;}
-.hand.minute { width: 40%; height: 4px; background: #010229; z-index: 2; }
-.hand.second { width: 45%; height: 1px; background: #010229; z-index: 3; }
+.hand.hour { 
+  width: 30%; 
+  height: 6px; 
+  background: #010229; 
+  z-index: 2;
+}
+.hand.minute { 
+  width: 40%; 
+  height: 4px; 
+  background: #010229; 
+  z-index: 2; 
+}
+.hand.second { 
+  width: 45%; 
+  height: 1px; 
+  background: #010229; 
+  z-index: 3; 
+}
 
 .center {
-      position: absolute;
-      top: 50%; left: 50%;
-      width: 12px; height: 12px;
-      background: black; border-radius: 50%;
-      transform: translate(-50%, -50%);
-    }
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 12px; height: 12px;
+  background: black; border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
     
 .clock::after {
-  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -132,50 +145,67 @@ body {
   transform: translate(-50%, -50%);
   z-index: 10;
 }
-/* date/time */
+
+/* --------------------date/time------------------- */
 .datetime {
   margin-top: 20px;
   font-size: 20px;
   color: #29292a;
   background: #a7a7ae;
-   opacity: 0.9;
+  opacity: 0.9;
   padding: 10px 23px;
   border-radius: 6px;
-  
+  z-index: 2;
+  position: relative;
+  text-align: center;
 }
 button{
   color: #3a3b50;
 }
-/* timer */
+/* ----------------------timer----------------------- */
 .timer {
   margin-top: 20px;
   background: #a7a7ae;
-   opacity: 0.7;
+  opacity: 0.7;
   padding: 15px;
   border-radius: 10px;
   color: rgb(81, 81, 81);
-
 }
+
 .timer button {
   margin: 5px;
   padding: 6px 12px;
   font-size: 16px;
   background-color:#dedee1;
+  border: none;
 }
+
+.timer button:hover {
+  background: rgba(255, 255, 255, 0.257);
+}
+
 .button-row {
   display: flex;
   justify-content: center;
   gap: 10px;
   margin-top: 10px;
 }
+
 .timerDisplay {
-  font-size: 32px; 
+  font-size: clamp(5rem, 20vw, 25rem);
+  color: rgba(218, 219, 223, 0.348);
   font-weight: bold; 
   text-align: center;
-  margin: 10px 0;
-  
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0; 
+  pointer-events: none;
+  z-index: 0;
 }
-/* video css */
+
+/* ---------------------video----------------- */
 #bgVideo {
   position: fixed;
   top: 0;
@@ -185,7 +215,7 @@ button{
   object-fit: cover;
   z-index: -1;
 }
-
+/* ----------------video panel------------------- */
 .video-panel {
   position: fixed;
   right: -260px;
@@ -198,12 +228,14 @@ button{
   justify-content: center;
   align-items: center;
   padding: 10px;
-  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.4);
   transition: right 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
   z-index: 20;
 }
+
 .video-panel.open {
   right: 0;
+  top: 15%;
+  bottom: 20%;
 }
 
 .video-list {
@@ -211,11 +243,12 @@ button{
   flex-direction: column;
   gap: 5px;
 }
+
 .video-list button {
-  font-size: 30px;
-  background: rgba(255, 255, 255, 0.59);
+  font-size: 20px;
+  background: #dedee196;
   border: none;
-  color: rgba(255, 255, 255, 0.692);
+  color: #dedee1;
   padding: 12px;
   border-radius: 12px;
   cursor: pointer;
@@ -228,10 +261,7 @@ button{
   top: 20px;
   right: 20px;
   border-radius: 12px;
-  font-size: 50px;
   position: fixed;
-  top: 20px;
-  right: 20px;
   background: rgba(255, 255, 255, 0.546);
   color: rgba(255, 255, 255, 0.749);
   border: none;
@@ -245,21 +275,19 @@ button{
 
 .panel-toggle:hover {
   background: rgba(255, 255, 255, 0.35);
-  
 }
 
-/* sound css */
+/* -----------------------------sound------------------ */
 .sound-ui {
   position: fixed;
   bottom: -300px;
   left: 50%;
   width: 80%;
   transform: translateX(-50%);
-  background-color: #a7a7ae;
+  background-color: rgba(167, 167, 174, 0.586);
   backdrop-filter: blur(10px);
-  box-shadow: - -4px 20px rgba(0, 0, 0, 0.4);
   border-radius: 20px 20px 0 0;
-   opacity: 0.8;
+  opacity: 0.8;
   padding-top: 15px ;
   padding-bottom: 15px;
   transition: bottom 0.6s ease;;
@@ -285,22 +313,22 @@ button{
   flex-direction: row;
   align-items: center;
   gap: 10px;
-  background: rgba(255, 255, 255, 0.251);
+  background: rgba(167, 167, 174, 0.586);
   border-radius: 10px;
   font-size: 18px;
   transition: background 0.3s; 
 }
 .video-list button:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.35);
   transform: scale(1.1);
 }
 
 .sound-control:hover {
-  background: rgba(255, 255, 255, 0.385);
+  background: rgba(255, 255, 255, 0.675);
 }
 
 .sound-control label {
-  font-size: 30px;
+  font-size: 20px;
   margin-left: 5px;
 }
 
@@ -308,6 +336,7 @@ button{
   width: 100px;
   height: 8px;
 }
+
 input[type="range"] {
   -webkit-appearance: none;
   width: 200px;
@@ -317,6 +346,7 @@ input[type="range"] {
   outline: none;
   margin: 10px 0;
 }
+
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
@@ -326,40 +356,13 @@ input[type="range"]::-webkit-slider-thumb {
   background: rgb(66, 66, 69);
   cursor: pointer;
 }
-.soundControlBtn {
-  position: fixed;
-  bottom: 150px;
-  left: 50%; 
-  margin-top: 0;
-  padding-bottom: 0;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.soundControlBtn button {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.444);
-  color: white;
-  border: none;
-  font-size: 40px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.soundControlBtn button:hover {
-  background: rgba(255, 255, 255, 0.35);
-}
+
 .mute-btn {
   font-size: 22px;
   padding: 2px 10px;
   cursor: pointer;
   border: none;
   border-radius: 4px;
-  background-color: #ccc;
 }
 #toggleBtn {
   position: fixed;
@@ -380,3 +383,31 @@ input[type="range"]::-webkit-slider-thumb {
   background: rgba(255, 255, 255, 0.3);
 }
 
+/* ----------------play/pause btn------------- */
+.soundControlBtn {
+  position: fixed;
+  bottom: 150px;
+  left: 50%; 
+  margin-top: 0;
+  padding-bottom: 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.soundControlBtn button {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.444);
+  border: none;
+  font-size: 40px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.soundControlBtn button:hover {
+  background: rgba(255, 255, 255, 0.35);
+}

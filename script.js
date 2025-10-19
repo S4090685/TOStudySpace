@@ -1,17 +1,18 @@
 // ---------- WELCOME MESSAGE ----------
 window.onload = function() {
   document.getElementById('welcomeInfo').style.display = 'flex';
+  createNumbers();
 };
 
-// Close the popup when button is clicked
 document.getElementById('okBtn').onclick = function() {
   document.getElementById('welcomeInfo').style.display = 'none';
 };
 
-// ---------- TIMER ----------
+// ------------------------- TIMER ---------------------------
 let timerDuration = 30 * 60;
 let timerRemaining = timerDuration;
 let timerInterval = null;
+let isTimerRunning = false;
 
 function updateTimerDisplay() {
   const minutes = Math.floor(timerRemaining / 60);
@@ -19,46 +20,61 @@ function updateTimerDisplay() {
   document.getElementById("timer").innerText =
     `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 }
-
-function setTimer() {
-  const minutes = parseInt(document.getElementById("setTime").value);
+const setTimeInput = document.getElementById("setTime");
+setTimeInput.addEventListener("input", () => {
+  const minutes = parseInt(setTimeInput.value);
   if (!isNaN(minutes) && minutes > 0) {
     timerDuration = minutes * 60;
     timerRemaining = timerDuration;
     updateTimerDisplay();
-  }
-}
 
-function startTimer() {
-  if (timerInterval) return;
-  timerInterval = setInterval(() => {
-    if (timerRemaining > 0) {
-      timerRemaining--;
-      updateTimerDisplay();
-    } else {
+    if (isTimerRunning) {
       clearInterval(timerInterval);
       timerInterval = null;
-      alert("Time’s up!");
+      isTimerRunning = false;
+      startPauseBtn.textContent = "▶";
     }
-  }, 1000);
-}
+  }
+});
 
-function stopTimer() {
-  clearInterval(timerInterval);
-  timerInterval = null;
-}
+// --------------------Start/Pause btn----------------------------
+const startPauseBtn = document.getElementById("toggleTimerBtn");
+startPauseBtn.addEventListener("click", () => {
+  if (!isTimerRunning) {
+    timerInterval = setInterval(() => {
+      if (timerRemaining > 0) {
+        timerRemaining--;
+        updateTimerDisplay();
+      } else {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        isTimerRunning = false;
+        startPauseBtn.textContent = "▶";
+        alert("Time’s up!");
+      }
+    }, 1000);
+    isTimerRunning = true;
+    startPauseBtn.textContent = "⏸";
+  } else {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    isTimerRunning = false;
+    startPauseBtn.textContent = "▶";
+  }
+});
 
 function resetTimer() {
   clearInterval(timerInterval);
   timerInterval = null;
+  isTimerRunning = false;
   timerRemaining = timerDuration;
   updateTimerDisplay();
+  startPauseBtn.textContent = "▶";
 }
 
 updateTimerDisplay();
 
-
-// ---------- CLOCK ----------
+// --------------------------------- analog clock -----------------------
 function updateClock() {
   const now = new Date();
   const seconds = now.getSeconds() + now.getMilliseconds() / 1000;
@@ -80,6 +96,7 @@ updateClock();
 
 function createNumbers() {
   const numbersContainer = document.getElementById("numbers");
+  if (!numbersContainer) return;
   for (let i = 1; i <= 12; i++) {
     const number = document.createElement("div");
     number.className = "number";
@@ -96,10 +113,8 @@ function createNumbers() {
     numbersContainer.appendChild(number);
   }
 }
-createNumbers();
 
-
-// ---------- SOUND CONTROLS ----------
+// ------------------------------------------sound---------------------------
 const soundMap = {
   sound1: "rain",
   sound2: "bird",
@@ -119,8 +134,9 @@ const activeSounds = new Set();
 let isPausedAll = true; 
 let rainStarted = false;
 
-const okBtn = document.getElementById("okBtn");
-okBtn.addEventListener("click", () => {
+// Play a sound after "Got it!"
+const okBtnSound = document.getElementById("okBtn");
+okBtnSound.addEventListener("click", () => {
   const rainAudio = document.getElementById("rain");
   if (rainAudio && !rainStarted) {
     rainAudio.loop = true;
@@ -131,7 +147,6 @@ okBtn.addEventListener("click", () => {
     const btn = document.querySelector(`[onclick*="sound1"]`);
     if (btn) btn.textContent = "🔊";
   }
-  document.getElementById("welcomeInfo").style.display = "none";
 });
 
 function toggleSound(soundId, btn) {
@@ -147,10 +162,7 @@ function toggleSound(soundId, btn) {
     activeSounds.add(soundId);
     audio.loop = true;
     audio.muted = false;
-
-    if (!isPausedAll) {
-      audio.play().catch(err => console.warn("Playback error:", err));
-    }
+    if (!isPausedAll) audio.play().catch(err => console.warn(err));
     btn.textContent = "🔊";
   }
 }
@@ -163,41 +175,33 @@ function updateSoundVolume(soundId) {
   audio.volume = slider.value / 100;
 
   if (activeSounds.has(soundId) && !isPausedAll) {
-    audio.play().catch(err => console.warn("Playback error:", err));
+    audio.play().catch(err => console.warn(err));
   }
 }
 
-
 const playPauseBtn = document.getElementById('playPause');
-console.log("playPause");
-
-isPausedAll = !isPausedAll;
-
 playPauseBtn.addEventListener('click', () => {
   if (isPausedAll) {
     activeSounds.forEach(soundId => {
       const audio = document.getElementById(soundMap[soundId]);
-      if (audio) {
-        audio.loop = true;
-        audio.play().catch(err => console.warn("Playback error:", err));
-      }
+      if (audio) { audio.loop = true; audio.play().catch(err=>console.warn(err)); }
       const btn = document.querySelector(`[onclick*="${soundId}"]`);
       if (btn) btn.textContent = "🔊";
     });
     playPauseBtn.textContent = "⏸";
+    isPausedAll = false;
   } else {
     activeSounds.forEach(soundId => {
       const audio = document.getElementById(soundMap[soundId]);
       if (audio) audio.pause();
     });
     playPauseBtn.textContent = "▶";
+    isPausedAll = true;
   }
-isPausedAll = !isPausedAll;
-
-  
 });
 
-// Sound panel toggle
+
+// ------------------------------------------sound panel -------------------------------------
 const musicToggleBtn = document.getElementById('toggleBtn');
 const soundPanel = document.getElementById('soundPanel');
 
@@ -207,15 +211,13 @@ musicToggleBtn.addEventListener('click', () => {
 });
 
 
-// ---------- VIDEO PANEL ----------
+// -------------------------------------------video----------------------------------------
 const toggleBtn = document.getElementById('togglePanelBtn');
 const videoPanel = document.getElementById('videoPanel');
 
 toggleBtn.addEventListener('click', () => {
   videoPanel.classList.toggle('open');
-  toggleBtn.textContent = videoPanel.classList.contains('open')
-    ? "x"
-    : "🎬";
+  toggleBtn.textContent = videoPanel.classList.contains('open') ? "x" : "🎬";
 });
 
 function changeVideo(fileName) {
