@@ -74,9 +74,12 @@
   <!-- Sound Controls -->
   <div class="sound"> 
    <button id="toggleBtn">🎶</button>
-
+    <div class="soundControlBtn">
+    <button id="playPause">⏸</button>
+    </div>
       <div id="soundPanel" class="sound-ui">
         <div class="sound-group">
+          
           <div class="sound-control">
             <button class="mute-btn" onclick="toggleSound('sound1', this)">🔇</button>
             <input type="range" id="sound1" min="1" max="100" value="50" oninput="updateSoundVolume('sound1')">

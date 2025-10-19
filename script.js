@@ -1,16 +1,15 @@
-
-// welcoming message
+// ---------- WELCOME MESSAGE ----------
 window.onload = function() {
   document.getElementById('welcomeInfo').style.display = 'flex';
-}
+};
 
 // Close the popup when button is clicked
 document.getElementById('okBtn').onclick = function() {
   document.getElementById('welcomeInfo').style.display = 'none';
-}
+};
 
-// ----------- TIMER -------------
-let timerDuration = 30 * 60; 
+// ---------- TIMER ----------
+let timerDuration = 30 * 60;
 let timerRemaining = timerDuration;
 let timerInterval = null;
 
@@ -31,7 +30,7 @@ function setTimer() {
 }
 
 function startTimer() {
-  if (timerInterval) return; 
+  if (timerInterval) return;
   timerInterval = setInterval(() => {
     if (timerRemaining > 0) {
       timerRemaining--;
@@ -56,20 +55,20 @@ function resetTimer() {
   updateTimerDisplay();
 }
 
-
 updateTimerDisplay();
 
-// ----------- CLOCK -------------
+
+// ---------- CLOCK ----------
 function updateClock() {
   const now = new Date();
   const seconds = now.getSeconds() + now.getMilliseconds() / 1000;
   const minutes = now.getMinutes() + seconds / 60;
-  const hours   = (now.getHours() % 12) + minutes / 60;
+  const hours = (now.getHours() % 12) + minutes / 60;
 
- const offset = -90;
-document.getElementById("second").style.transform = `rotate(${seconds * 6 + offset}deg)`;
-document.getElementById("minute").style.transform = `rotate(${minutes * 6 + offset}deg)`;
-document.getElementById("hour").style.transform   = `rotate(${hours * 30 + offset}deg)`;
+  const offset = -90;
+  document.getElementById("second").style.transform = `rotate(${seconds * 6 + offset}deg)`;
+  document.getElementById("minute").style.transform = `rotate(${minutes * 6 + offset}deg)`;
+  document.getElementById("hour").style.transform = `rotate(${hours * 30 + offset}deg)`;
 
   const dateStr = now.toISOString().split("T")[0];
   const timeStr = now.toLocaleTimeString();
@@ -78,6 +77,7 @@ document.getElementById("hour").style.transform   = `rotate(${hours * 30 + offse
   requestAnimationFrame(updateClock);
 }
 updateClock();
+
 function createNumbers() {
   const numbersContainer = document.getElementById("numbers");
   for (let i = 1; i <= 12; i++) {
@@ -98,7 +98,8 @@ function createNumbers() {
 }
 createNumbers();
 
-// ----------- SOUND CONTROLS -------------
+
+// ---------- SOUND CONTROLS ----------
 const soundMap = {
   sound1: "rain",
   sound2: "bird",
@@ -113,61 +114,100 @@ const soundMap = {
   sound11: "guitar",
   sound12: "piano"
 };
-window.addEventListener("DOMContentLoaded", () => {
-  const birdAudio = document.getElementById("bird");
-  birdAudio.volume = 0.8;
-});
 
-window.addEventListener("DOMContentLoaded", () => {
-  const cityAudio = document.getElementById("city");
-  cityAudio.volume = 0.8;
+const activeSounds = new Set();
+let isPausedAll = true; 
+let rainStarted = false;
+
+const okBtn = document.getElementById("okBtn");
+okBtn.addEventListener("click", () => {
+  const rainAudio = document.getElementById("rain");
+  if (rainAudio && !rainStarted) {
+    rainAudio.loop = true;
+    rainAudio.volume = 0.5;
+    rainAudio.play().catch(err => console.warn("Autoplay blocked:", err));
+    rainStarted = true;
+    activeSounds.add("sound1");
+    const btn = document.querySelector(`[onclick*="sound1"]`);
+    if (btn) btn.textContent = "🔊";
+  }
+  document.getElementById("welcomeInfo").style.display = "none";
 });
 
 function toggleSound(soundId, btn) {
   const audio = document.getElementById(soundMap[soundId]);
   if (!audio) return;
 
-  if (audio.paused) {
+  if (activeSounds.has(soundId)) {
+    activeSounds.delete(soundId);
+    audio.pause();
+    audio.currentTime = 0;
+    btn.textContent = "🔇";
+  } else {
+    activeSounds.add(soundId);
     audio.loop = true;
     audio.muted = false;
-    audio.play();
+
+    if (!isPausedAll) {
+      audio.play().catch(err => console.warn("Playback error:", err));
+    }
     btn.textContent = "🔊";
-  } else {
-    audio.muted = !audio.muted;
-    btn.textContent = audio.muted ? "🔇" : "🔊";
   }
 }
 
 function updateSoundVolume(soundId) {
   const audio = document.getElementById(soundMap[soundId]);
   if (!audio) return;
-
-  if (audio.paused) {
-    audio.loop = true;
-    audio.play();
-  }
-
   const slider = document.getElementById(soundId);
+
   audio.volume = slider.value / 100;
 
-  audio.muted = false;
-
-  const btn = slider.previousElementSibling;
-  if (btn && btn.classList.contains("mute-btn")) {
-    btn.textContent = "🔊";
+  if (activeSounds.has(soundId) && !isPausedAll) {
+    audio.play().catch(err => console.warn("Playback error:", err));
   }
 }
+
+
+const playPauseBtn = document.getElementById('playPause');
+console.log("playPause");
+
+isPausedAll = !isPausedAll;
+
+playPauseBtn.addEventListener('click', () => {
+  if (isPausedAll) {
+    activeSounds.forEach(soundId => {
+      const audio = document.getElementById(soundMap[soundId]);
+      if (audio) {
+        audio.loop = true;
+        audio.play().catch(err => console.warn("Playback error:", err));
+      }
+      const btn = document.querySelector(`[onclick*="${soundId}"]`);
+      if (btn) btn.textContent = "🔊";
+    });
+    playPauseBtn.textContent = "⏸";
+  } else {
+    activeSounds.forEach(soundId => {
+      const audio = document.getElementById(soundMap[soundId]);
+      if (audio) audio.pause();
+    });
+    playPauseBtn.textContent = "▶";
+  }
+isPausedAll = !isPausedAll;
+
+  
+});
+
+// Sound panel toggle
 const musicToggleBtn = document.getElementById('toggleBtn');
 const soundPanel = document.getElementById('soundPanel');
 
 musicToggleBtn.addEventListener('click', () => {
   soundPanel.classList.toggle('open');
-  musicToggleBtn.textContent = soundPanel.classList.contains('open')
-    ? "x"
-    : "🎶";
+  musicToggleBtn.textContent = soundPanel.classList.contains('open') ? "x" : "🎶";
 });
 
-// video panel 
+
+// ---------- VIDEO PANEL ----------
 const toggleBtn = document.getElementById('togglePanelBtn');
 const videoPanel = document.getElementById('videoPanel');
 
@@ -176,7 +216,6 @@ toggleBtn.addEventListener('click', () => {
   toggleBtn.textContent = videoPanel.classList.contains('open')
     ? "x"
     : "🎬";
-
 });
 
 function changeVideo(fileName) {

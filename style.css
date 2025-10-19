@@ -275,7 +275,7 @@ button{
 
 .sound-group {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, 2fr);
   gap: 20px;
   justify-items: center;
 }
@@ -294,7 +294,6 @@ button{
   background: rgba(255, 255, 255, 0.3);
   transform: scale(1.1);
 }
-
 
 .sound-control:hover {
   background: rgba(255, 255, 255, 0.385);
@@ -327,7 +326,33 @@ input[type="range"]::-webkit-slider-thumb {
   background: rgb(66, 66, 69);
   cursor: pointer;
 }
-
+.soundControlBtn {
+  position: fixed;
+  bottom: 150px;
+  left: 50%; 
+  margin-top: 0;
+  padding-bottom: 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.soundControlBtn button {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.444);
+  color: white;
+  border: none;
+  font-size: 40px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.soundControlBtn button:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
 .mute-btn {
   font-size: 22px;
   padding: 2px 10px;
@@ -354,3 +379,4 @@ input[type="range"]::-webkit-slider-thumb {
 #toggleBtn:hover {
   background: rgba(255, 255, 255, 0.3);
 }
+
