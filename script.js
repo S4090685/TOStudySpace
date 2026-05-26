@@ -75,44 +75,44 @@ function resetTimer() {
 updateTimerDisplay();
 
 // --------------------------------- analog clock -----------------------
-function updateClock() {
-  const now = new Date();
-  const seconds = now.getSeconds() + now.getMilliseconds() / 1000;
-  const minutes = now.getMinutes() + seconds / 60;
-  const hours = (now.getHours() % 12) + minutes / 60;
+// function updateClock() {
+//   const now = new Date();
+//   const seconds = now.getSeconds() + now.getMilliseconds() / 1000;
+//   const minutes = now.getMinutes() + seconds / 60;
+//   const hours = (now.getHours() % 12) + minutes / 60;
 
-  const offset = -90;
-  document.getElementById("second").style.transform = `rotate(${seconds * 6 + offset}deg)`;
-  document.getElementById("minute").style.transform = `rotate(${minutes * 6 + offset}deg)`;
-  document.getElementById("hour").style.transform = `rotate(${hours * 30 + offset}deg)`;
+//   const offset = -90;
+//   document.getElementById("second").style.transform = `rotate(${seconds * 6 + offset}deg)`;
+//   document.getElementById("minute").style.transform = `rotate(${minutes * 6 + offset}deg)`;
+//   document.getElementById("hour").style.transform = `rotate(${hours * 30 + offset}deg)`;
 
-  const dateStr = now.toISOString().split("T")[0];
-  const timeStr = now.toLocaleTimeString();
-  document.getElementById("datetime").innerText = `${dateStr} ${timeStr}`;
+//   const dateStr = now.toISOString().split("T")[0];
+//   const timeStr = now.toLocaleTimeString();
+//   document.getElementById("datetime").innerText = `${dateStr} ${timeStr}`;
 
-  requestAnimationFrame(updateClock);
-}
-updateClock();
+//   requestAnimationFrame(updateClock);
+// }
+// updateClock();
 
-function createNumbers() {
-  const numbersContainer = document.getElementById("numbers");
-  if (!numbersContainer) return;
-  for (let i = 1; i <= 12; i++) {
-    const number = document.createElement("div");
-    number.className = "number";
-    number.innerText = i;
+// function createNumbers() {
+//   const numbersContainer = document.getElementById("numbers");
+//   if (!numbersContainer) return;
+//   for (let i = 1; i <= 12; i++) {
+//     const number = document.createElement("div");
+//     number.className = "number";
+//     number.innerText = i;
 
-    const angle = (i / 12) * 2 * Math.PI;
-    const radius = 90;
-    const x = 100 + radius * Math.sin(angle);
-    const y = 100 - radius * Math.cos(angle);
+//     const angle = (i / 12) * 2 * Math.PI;
+//     const radius = 90;
+//     const x = 100 + radius * Math.sin(angle);
+//     const y = 100 - radius * Math.cos(angle);
 
-    number.style.left = `${x}px`;
-    number.style.top = `${y}px`;
+//     number.style.left = `${x}px`;
+//     number.style.top = `${y}px`;
 
-    numbersContainer.appendChild(number);
-  }
-}
+//     numbersContainer.appendChild(number);
+//   }
+// }
 
 // ------------------------------------------sound---------------------------
 const soundMap = {
